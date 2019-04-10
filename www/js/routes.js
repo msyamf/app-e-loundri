@@ -7,6 +7,10 @@ var routes = [
   },
   // About page
   {
+    path: '/masuk/',
+    componentUrl: './halaman/login-screen-page.html',
+  },
+  {
     path: '/about/',
     url: './pages/about.html',
     name: 'about',

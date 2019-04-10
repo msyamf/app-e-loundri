@@ -21,6 +21,7 @@ function onBackKeyDown() {
 }
 
 
+var baseurl = 'http://localhost/rest-api-e-loundri/public';
 // Dom7
 var $$ = Dom7;
 
@@ -61,9 +62,22 @@ $$(document).on('page:init',function (e) {
   app.form.storeFormData('exit',false);
   app.form.storeFormData('page',e.detail.router.url);
   console.log(app.form.getFormData('exit'))
-  //console.log(e.detail.router)
+  
+  var data_user = app.form.getFormData('data_user');
+  if(!data_user.token){
+    app.views.main.router.navigate('/masuk/')
+  }
 })
 
-$$(document).on('page:init', '.page[data-name="p404"]', function (e) {
-  //onBackKeyDown(e.detail.router.url);
-})
+$$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
+  console.log(app.form.getFormData('data_user'));
+  $$('#masuk').click(function(e){
+    app.request.post(baseurl+'/masuk',{ nama_pengguna: $$('input#demo-username-2').val(), password:  $$('input#demo-password-2').val() }, function (data) {
+      var data_j = JSON.parse(data); 
+      if(data_j.proses){
+          app.form.storeFormData('data_user',data_j);
+          app.views.main.router.navigate('/')
+        }
+      });
+  });
+});
