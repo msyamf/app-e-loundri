@@ -1,0 +1,103 @@
+<template>
+    <div class="page" data-name="ubah-pengguna">
+      <div class="navbar">
+        <div class="navbar-inner sliding">
+          <div class="left">
+            <a href="#" class="link back">
+              <i class="icon icon-back"></i>
+              <span class="ios-only">Back</span>
+            </a>
+          </div>
+          <div class="title">{{judul}}</div>
+        </div>
+      </div>
+      <div class="list-index"></div>
+      <div class="page-content">
+        <div class="block-title">{{sub_judul}}</div>
+        <div class="list no-hairlines-md">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama penguna (username)</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="nama_pengguna" value="{{$route.query.nama_pengguna}}" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+            
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama Lengkap</div>
+                  <div class="item-input-wrap">
+                    <input id="nama" type="text" placeholder="Ex: jhon due" value="{{$route.query.nama}}" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Level</div>
+                  <div class="item-input-wrap">
+                    <select id="level" data-level="{{$route.query.level}}"  placeholder="Pilih salah satu..." class="input-with-value">
+                        <option value="pegawai">Pegawai</option>
+                        <option value="pemilik">Pemilik</option>
+                      </select>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Telfon</div>
+                  <div class="item-input-wrap">
+                    <input id="telfon" type="number" value="{{$route.query.telfon}}" placeholder="Ex: 08510000000" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Alamat</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="alamat" value="{{$route.query.alamat}}" placeholder="Ex: Jl. Mojopahit" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              
+            </ul>
+            <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><button id="ubah" data-id="{{$route.query.id}}" class="col button button-raised button-fill">ubah</button></div>
+                    <div class="col"></div>
+                  </div>
+          </div>
+          <br>
+          <br>
+          <br>
+         
+        <div class="block-title">Ubah password</div>
+        <div class="list no-hairlines-md">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Password</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="password" placeholder="password" class="" required>
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              
+              
+            </ul>
+            <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><button id="ubah-password" data-id="{{$route.query.id}}" class="col button button-raised button-fill">ubah</button></div>
+                    <div class="col"></div>
+                  </div>
+          </div>
+      </div>
+    </div>
+  </template>
+  

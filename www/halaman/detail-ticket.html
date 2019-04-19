@@ -1,0 +1,161 @@
+<template>
+    <div class="page" data-name="detail-ticket" data-id="{{$route.query.id}}">
+      <div class="navbar">
+        <div class="navbar-inner sliding">
+          <div class="left">
+            <a href="#" class="link back">
+              <i class="icon icon-back"></i>
+              <span class="ios-only">Back</span>
+            </a>
+          </div>
+          <div class="title">{{judul}}</div>
+        </div>
+      </div>
+    
+      <div class="page-content">
+        <div class="list accordion-list">
+            <ul>
+              <li class="accordion-item">
+                <a href="#" class="item-link item-content">
+                  <div class="item-inner">
+                    <div class="item-title">{{sub_judul}}</div>
+                  </div>
+                </a>
+                <div class="accordion-item-content" aria-hidden="true">
+                  <div class="block">
+                      <div class="list no-ios-edges">
+                        <ul>
+                            <li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Nama</div>
+                                      <div id="nama_pelanggan"></div>
+                                    </div>
+                                    <!-- <div class="item-after">Edit</div> -->
+                                  </div>
+                                </a>
+                              </li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Status</div>
+                                      <div id="status_ticket"></div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                              </li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Tanggal</div>
+                                      <div id="tgl"></div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                              </li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Alamat</div>
+                                      <div id="alamat_pelanggan"></div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                              </li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Telfon Pelanggan</div>
+                                      <div id="telp_pelangan"></div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                              </li>
+                                <a href="#" class="item-link item-content">
+                                  <div class="item-inner">
+                                    <div class="item-title">
+                                      <div class="item-header">Pegawai</div>
+                                      <div id="nama_pengguna">nama_pengguna</div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="accordion-item">
+                          <a href="#" class="item-link item-content">
+                            <div class="item-inner">
+                              <div class="item-title">Aksi</div>
+                            </div>
+                          </a>
+                          <div class="accordion-item-content" style="" aria-hidden="true">
+                            <div class="block">
+                                <p class="row">
+                                    <button class="col button button-fill color-red">HAPUS</button>
+                                    <button class="col button button-fill color-green">Selesai</button>
+                                    <button class="col button button-fill color-blue">Edit</button>
+                                  </p>
+                            </div>
+                          </div>
+                        </li>
+                     
+                    </ul>
+                  </div>
+
+
+        
+          <div class="block-title">{{sub_judul_1}}</div>
+          <div class="card">
+            <div class="card-content">
+              <div class="list no-ios-edges">
+                <ul id="list_cucian">
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="block-title">{{sub_judul_2}}</div>
+            <div class="card">
+                <div class="card-content card-content-padding" id="total_biaya"></div>
+           </div>
+        <div class="list no-hairlines-md">
+            <ul>
+              <li class="item-content item-input item-input-with-value">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Jenis</div>
+                    <div class="item-input-wrap input-dropdown-wrap">
+                      <select placeholder="Please choose..." id="list_harga" class="input-with-value">
+                        <option>.......</option>
+                      </select>
+                    </div>
+                  </div>
+                </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Berat</div>
+                  <div class="item-input-wrap">
+                    <input id="jumlah" type="number" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              
+            </ul>
+            <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><button id="tambah" class="col button button-raised button-fill">tambah</button></div>
+                    <div class="col"></div>
+                   
+                  </div>
+          </div>
+      </div>
+    </div>
+  </template>
+  

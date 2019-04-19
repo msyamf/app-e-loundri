@@ -6,10 +6,79 @@ var routes = [
     name: 'home',
   },
   // About page
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   {
     path: '/masuk/',
     componentUrl: './halaman/login-screen-page.html',
+    options: {
+      context: {
+        judul: 'Login',
+      },
+    },
   },
+  {
+    path: '/tambah-pegawai/',
+    componentUrl: './halaman/tambah-pegawai.html',
+    options: {
+      context: {
+        judul: 'Tambah Pegawai',
+        sub_judul: 'Isikan form dengan data yang sesuai',
+      },
+    },
+  },
+  {
+    path: '/list-pengguna/',
+    componentUrl: './halaman/list-pengguna.html',
+    options: {
+      context: {
+        judul: 'Daftar Penguna',
+        sub_judul: 'List daftar Penguna aplikasi',
+      },
+    },
+  },
+  {
+    path: '/ubah-pegawai/',
+    componentUrl: './halaman/ubah-pegawai.html',
+    options: {
+      context: {
+        judul: 'Ubah Penguna',
+        sub_judul: 'Ubah informasi pengguna',
+      },
+    },
+  },
+  {
+    path: '/list-ticket/',
+    componentUrl: './halaman/list-ticket.html',
+    options: {
+      context: {
+        judul: 'Daftar ticket',
+        sub_judul: 'List daftar ticket',
+      },
+    },
+  },
+    {
+      path: '/tambah-ticket/',
+      componentUrl: './halaman/tambah-ticket.html',
+      options: {
+        context: {
+          judul: 'Tambah ticket',
+          sub_judul: 'Isikan form dengan data yang sesuai',
+        },
+      },
+    },
+    {
+      path: '/detail-ticket/',
+      componentUrl: './halaman/detail-ticket.html',
+      options: {
+        context: {
+          judul: 'Detail ticket',
+          sub_judul: 'Detail Pelanggan',
+          sub_judul_1: 'List Cucian',
+          sub_judul_2: 'Total Biaya',
+        },
+      },
+    },
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   {
     path: '/about/',
     url: './pages/about.html',

@@ -1,0 +1,86 @@
+<template>
+    <div class="page" data-name="tambah-pengguna">
+      <div class="navbar">
+        <div class="navbar-inner sliding">
+          <div class="left">
+            <a href="#" class="link back">
+              <i class="icon icon-back"></i>
+              <span class="ios-only">Back</span>
+            </a>
+          </div>
+          <div class="title">{{judul}}</div>
+        </div>
+      </div>
+      <div class="list-index"></div>
+      <div class="page-content">
+        <div class="block-title">{{sub_judul}}</div>
+        <div class="list no-hairlines-md">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama penguna (username)</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="nama_pengguna" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Password</div>
+                  <div class="item-input-wrap">
+                    <input id="password" type="password" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama Lengkap</div>
+                  <div class="item-input-wrap">
+                    <input id="nama" type="text" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Level</div>
+                  <div class="item-input-wrap">
+                    <select id="level"  placeholder="Pilih salah satu..." class="input-with-value">
+                        <option value="pegawai">Pegawai</option>
+                        <option value="pemilik">Pemilik</option>
+                      </select>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Telfon</div>
+                  <div class="item-input-wrap">
+                    <input id="telfon" type="number" placeholder="Ex: 08510000000" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Alamat</div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="alamat" placeholder="Ex: Jl. Mojopahit" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              
+            </ul>
+            <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><button id="tambah" class="col button button-raised button-fill">tambah</button></div>
+                    <div class="col"></div>
+                  </div>
+          </div>
+      </div>
+    </div>
+  </template>
+  
