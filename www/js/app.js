@@ -7,7 +7,7 @@ function onDeviceReady() {document.addEventListener("backbutton", onBackKeyDown,
 
 // Handle the back button
 function onBackKeyDown() {
-  if(app.form.getFormData('page')=='/'&&app.form.getFormData('exit')==false){
+  if((app.form.getFormData('page')=='/' || app.form.getFormData('page')=='/masuk/')&&app.form.getFormData('exit')==false){
     app.form.storeFormData('exit',true)
     app.dialog.confirm('Are you sure you want to exit?','Exit. . .', function () {
       navigator.app.exitApp();
@@ -80,9 +80,18 @@ axios.post(baseurl+'/pengguna/cek', {},{headers: {'Content-Type': 'application/j
 });
 
 $$(document).on('page:init',function (e) {
+  if(app.form.getFormData('level')=='pemilik'){
+    $$('[akses="pemilik"]').show()
+  }
+  else if(app.form.getFormData('level')=='pegawai'){
+    $$('[akses="pemilik"]').hide()
+  }
   app.form.storeFormData('exit',false);
   app.form.storeFormData('page',e.detail.router.url);
   var token = app.form.getFormData('token');
+  $$('.reload').click(function(e){
+    app.views.main.router.refreshPage();
+  })
   if(!token){
     app.views.main.router.navigate('/masuk/')
   }
@@ -94,8 +103,9 @@ $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
     app.request.post(baseurl+'/masuk',{ nama_pengguna: $$('input#demo-username-2').val(), password:  $$('input#demo-password-2').val() }, function (data) {
       var data_j = JSON.parse(data); 
       if(data_j.proses){
-          app.form.storeFormData('data_user',data_j);
+         // app.form.storeFormData('data_user',data_j);
           app.form.storeFormData('token','Bearer '+ data_j.token);
+          app.form.storeFormData('level', data_j.level);
           app.views.main.router.navigate('/')
         }
       });
@@ -132,7 +142,7 @@ $$(document).on('page:init', '.page[data-name="list-ticket"]', function (e) {
        html +=            '&nbsp;&nbsp;&nbsp;';
        if(v[i].status_ticket==='baru'){html+='<span class="badge color-blue">'+v[i].status_ticket+'</span>'}
                           else if(v[i].status_ticket==='proses'){html+='<span class="badge color-orange">'+v[i].status_ticket+'</span>'}
-                          else if(v[i].status_ticket==='selesai'){html+='<span class="badge color-orange">'+v[i].status_ticket+'</span>'}
+                          else if(v[i].status_ticket==='selesai'){html+='<span class="badge color-green">'+v[i].status_ticket+'</span>'}
        html +=          '</div>';
        html +='         <div class="item-text">Aalamat : '+v[i].alamat_pelanggan+'</div>';
        html +='      </div>';
@@ -147,8 +157,34 @@ $$(document).on('page:init', '.page[data-name="list-ticket"]', function (e) {
   });
 });
 
+
 $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
   var id = $$(this).data('id');
+  $$('#selesai').click(function(){
+    axios.post(baseurl+'/transaksi/selesai', {
+      id_ticket:id,
+    }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      app.views.main.router.refreshPage()
+        })
+      .catch(function (error) {
+        console.log(error);
+        toasterr.open();
+    });
+  });
+  $$('#hapus').click(function(){
+    axios.post(baseurl+'/transaksi/hapus-permanen', {
+      id_ticket:id,
+    }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+   
+      app.views.main.router.back()
+        })
+      .catch(function (error) {
+        console.log(error);
+        toasterr.open();
+    });
+  });
   $$('#tambah').click(function(e){
     axios.post(baseurl+'/transaksi/tambah', {
       id_harga:$$('#list_harga').val(),
@@ -171,6 +207,14 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
     var v2 = data.data.transaksi;
     var v3 = data.data.total;
     var v4 = data.data.list_harga;
+    console.log(data.data.ticket.length)
+    if(data.data.ticket.length <= 0){
+      app.views.main.router.back()
+    }
+   
+    if(v.status_ticket=='selesai'&&app.form.getFormData('level')!='pemilik'){
+      $$('.selesai').hide();
+    }
     $$('#nama_pengguna').html(v.nama_pengguna)
     $$('#alamat_pelanggan').html(v.alamat_pelanggan)
     $$('#nama_pelanggan').html(v.nama_pelanggan)
@@ -202,6 +246,7 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
         $$('#list_harga').html(html2);
       })
     .catch(function (error) {
+      app.views.main.router.back()
       console.log(error);
       toasterr.open();
   });
@@ -260,6 +305,35 @@ $$(document).on('page:init', '.page[data-name="list-pengguna"]', function (e) {
     toasterr.open();
   });
 });
+$$(document).on('page:init', '.page[data-name="list-harga"]', function (e) {
+  // this.data = {};
+  axios.post(baseurl+'/m-harga/list', {}, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+  .then(function (data) {
+    var html = "";
+    var v = data.data.data;
+    this.data = v;
+    for(i=0;i<v.length;i++){
+      html +='<li id="ubah_data">';
+       html +='<a href="/ubah-harga/?nama='+v[i].nama+'&m_nama='+v[i].m_nama+'&m_harga='+v[i].m_harga+'&id='+v[i].m_id_harga+'">';
+       html +='<div class="item-content">';
+      // html += '<div class="item-media"><i class="f7-icons">person_fill</i></div>';
+       html +=  '<div class="item-inner">';
+       html +=   '<div class="item-title">'+v[i].m_nama+'</div>';
+       html +=   '<div class="item-after">';
+      html+=v[i].m_harga;
+       html+='</div>';
+       html += '</div>';
+       html +='</div>';
+       html +='</a>';
+       html +='</li>';
+      }
+    $$('#list-pengguna').html(html);
+  })
+  .catch(function (error) {
+    console.log(error);
+    toasterr.open();
+  });
+});
 
 $$(document).on('page:init', '.page[data-name="tambah-pengguna"]', function (e) {
  $$('#tambah').click(function(e){
@@ -301,139 +375,31 @@ $$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
    });
  })
 });
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-$$(document).on('page:init', '.page[data-name="tambah-ticket"]', function (e) {
- $$('#tambah').click(function(e){
-   axios.post(baseurl+'/daftar', {
-     nama_pelanggan: $$('#nama_pelangan').val(),
-     telfon: $$('#telfon').val(),
-     alamat: $$('#alamat').val()
-   },{headers: {'Content-Type': 'application/json'}})
-   .then(function (data) {
-    if(data.data.proses){
-     toastsucess.open();
-     app.views.main.router.back()
-    }
-   })
-   .catch(function (error) {
-     console.log(error);
-   });
- })
-});
-
 
 $$(document).on('page:init', '.page[data-name="ubah-pengguna"]', function (e) {
-$$('#level').val($$('#level').data('level'));
- $$('#ubah').click(function(e){
-  axios.post(baseurl+'/pengguna/ubah', {
-    nama_pengguna: $$('#nama_pengguna').val(),
-    nama: $$('#nama').val(),
-    level: $$('#level').val(),
-    telfon: $$('#telfon').val(),
-    id: $$('#ubah').data('id'),
-    alamat: $$('#alamat').val()
-  },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
-  .then(function (data) {
-    console.log(data.data.proses)
-    toastsucess.open();
-   if(data.data.proses){
-    app.views.main.router.back()
-   }
+  $$('#level').val($$('#level').data('level'));
+  $$('#ubah').click(function(e){
+    axios.post(baseurl+'/pengguna/ubah', {
+      nama_pengguna: $$('#nama_pengguna').val(),
+      nama: $$('#nama').val(),
+      level: $$('#level').val(),
+      telfon: $$('#telfon').val(),
+      id: $$('#ubah').data('id'),
+      alamat: $$('#alamat').val()
+    },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log(data.data.proses)
+      toastsucess.open();
+    if(data.data.proses){
+      app.views.main.router.back()
+    }
+    })
+    .catch(function (error) {
+      toasterr.open();
+      console.log(error);
+    });
   })
-  .catch(function (error) {
-    toasterr.open();
-    console.log(error);
-  });
- })
+
  $$('#ubah-password').click(function(e){
   axios.post(baseurl+'/pengguna/ubah-password', {
     password: $$('#password').val(),
@@ -451,6 +417,47 @@ $$('#level').val($$('#level').data('level'));
     console.log(error);
   });
  })
+});
+$$(document).on('page:init', '.page[data-name="ubah-harga"]', function (e) {
+  $$('#ubah').click(function(e){
+    axios.post(baseurl+'/m-harga/ubah', {
+      m_nama: $$('#m_nama').val(),
+      m_harga: $$('#m_harga').val(),
+      id: $$('#ubah').data('id'),
+    },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log(data.data.proses)
+      toastsucess.open();
+    if(data.data.proses){
+      app.views.main.router.back()
+    }
+    })
+    .catch(function (error) {
+      toasterr.open();
+      console.log(error);
+    });
+  })
+
+});
+$$(document).on('page:init', '.page[data-name="tambah-harga"]', function (e) {
+  $$('#tambah').click(function(e){
+    axios.post(baseurl+'/m-harga/tambah', {
+      m_nama: $$('#m_nama').val(),
+      m_harga: $$('#m_harga').val(),
+    },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log(data.data.proses)
+      toastsucess.open();
+    if(data.data.proses){
+      app.views.main.router.back()
+    }
+    })
+    .catch(function (error) {
+      toasterr.open();
+      console.log(error);
+    });
+  })
+
 });
 
 function getRandomColor() {
@@ -490,7 +497,7 @@ function list_ticket(offset){
        html +=            '&nbsp;&nbsp;&nbsp;';
        if(v[i].status_ticket==='baru'){html+='<span class="badge color-blue">'+v[i].status_ticket+'</span>'}
                           else if(v[i].status_ticket==='proses'){html+='<span class="badge color-orange">'+v[i].status_ticket+'</span>'}
-                          else if(v[i].status_ticket==='selesai'){html+='<span class="badge color-orange">'+v[i].status_ticket+'</span>'}
+                          else if(v[i].status_ticket==='selesai'){html+='<span class="badge color-green">'+v[i].status_ticket+'</span>'}
        html +=          '</div>';
        html +='         <div class="item-text">Aalamat : '+v[i].alamat_pelanggan+'</div>';
        html +='      </div>';

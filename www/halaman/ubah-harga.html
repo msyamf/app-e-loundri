@@ -1,0 +1,59 @@
+<template>
+    <div class="page" data-name="ubah-harga">
+      <div class="navbar">
+        <div class="navbar-inner sliding">
+          <div class="left">
+            <a href="#" class="link back">
+              <i class="icon icon-back"></i>
+              <span class="ios-only">Back</span>
+            </a>
+          </div>
+          <div class="title">{{judul}}</div>
+        </div>
+      </div>
+      <div class="list-index"></div>
+      <div class="page-content">
+        <div class="block-title">{{sub_judul}}</div>
+        <div class="list no-hairlines-md">
+            <ul>
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Nama </div>
+                  <div class="item-input-wrap">
+                    <input type="text" id="m_nama" value="{{$route.query.m_nama}}" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+            
+              <li class="item-content item-input">
+                <div class="item-inner">
+                  <div class="item-title item-label">Harga</div>
+                  <div class="item-input-wrap">
+                    <input type="number" id="m_harga" value="{{$route.query.m_harga}}" class="">
+                    <span class="input-clear-button"></span>
+                  </div>
+                </div>
+              </li>
+              <br>
+              <br>
+              <br>
+            
+       
+              
+            </ul>
+            <div class="row">
+                    <div class="col"></div>
+                    <div class="col"><button id="ubah" data-id="{{$route.query.id}}" class="col button button-raised button-fill">ubah</button></div>
+                    <div class="col"></div>
+                  </div>
+          </div>
+          <br>
+          <br>
+          <br>
+         
+
+      </div>
+    </div>
+  </template>
+  

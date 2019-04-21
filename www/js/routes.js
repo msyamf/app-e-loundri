@@ -37,12 +37,42 @@ var routes = [
     },
   },
   {
+    path: '/list-harga/',
+    componentUrl: './halaman/list-harga.html',
+    options: {
+      context: {
+        judul: 'Daftar harga',
+        sub_judul: 'List daftar harga',
+      },
+    },
+  },
+  {
     path: '/ubah-pegawai/',
     componentUrl: './halaman/ubah-pegawai.html',
     options: {
       context: {
         judul: 'Ubah Penguna',
         sub_judul: 'Ubah informasi pengguna',
+      },
+    },
+  },
+  {
+    path: '/ubah-harga/',
+    componentUrl: './halaman/ubah-harga.html',
+    options: {
+      context: {
+        judul: 'Ubah harga',
+        sub_judul: 'Ubah informasi harga',
+      },
+    },
+  },
+  {
+    path: '/tambah-harga/',
+    componentUrl: './halaman/tambah-harga.html',
+    options: {
+      context: {
+        judul: 'Tambah harga',
+        sub_judul: 'Tambah informasi harga',
       },
     },
   },

@@ -26,8 +26,11 @@
           <div class="block-title">Main View Navigation</div>
           <div class="list links-list">
             <ul>
-              <li>
+              <li akses="pemilik" style="display: none">
                 <a href="/list-pengguna/" class="panel-close">list-pengguna</a>
+              </li>
+              <li akses="pemilik" style="display: none">
+                <a href="/list-harga/" class="panel-close">list-harga</a>
               </li>
               <li>
                 <a href="/list-ticket/" class="panel-close">list-ticket</a>
@@ -40,10 +43,7 @@
               </li>
             </ul>
           </div>
-          <div class="block">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
-            <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
-          </div>
+       
         </div>
       </div>
     </div>
@@ -80,8 +80,8 @@
                 <i class="icon material-icons md-only">menu</i>
               </a>
             </div>
-            <div class="title sliding">Framework7</div>
-            <div class="right">
+            <div class="title sliding">App</div>
+            <!-- <div class="right">
               <a class="link icon-only searchbar-enable" data-searchbar=".searchbar-components">
                 <i class="icon f7-icons ios-only">search_strong</i>
                 <i class="icon material-icons md-only">search</i>
@@ -96,10 +96,166 @@
                 </div>
                 <span class="searchbar-disable-button">Cancel</span>
               </div>
-            </form>
+            </form> -->
           </div>
         </div>
         <div class="page-content">
+            <div class="block block-strong">
+              <p>Framework7 comes with Gauge component. It produces nice looking fully responsive SVG gauges.</p>
+            </div>
+            <div class="block block-strong text-align-center">
+              <div class="gauge demo-gauge"><svg class="gauge-svg" width="250px" height="250px" viewBox="0 0 250 250">
+              
+                
+                  <circle class="gauge-back-circle" stroke="#eeeeee" stroke-width="10" fill="transparent" cx="125" cy="125" r="120"></circle>
+                
+                <circle class="gauge-front-circle" transform="rotate(-90 125 125)" stroke="#2196f3" stroke-width="10" stroke-dasharray="753.9822368615503" stroke-dashoffset="376.99111843077515" fill="none" cx="125" cy="125" r="120"></circle>
+              
+              
+                <text class="gauge-value-text" x="50%" y="50%" font-weight="500" font-size="41" fill="#2196f3" dy="0" text-anchor="middle" dominant-baseline="middle">50%</text>
+              
+              
+                <text class="gauge-label-text" x="50%" y="50%" font-weight="400" font-size="14" fill="#888888" dy="30.5" text-anchor="middle" dominant-baseline="middle">amount of something</text>
+              
+            </svg></div>
+              <p class="segmented segmented-raised">
+                <a href="#" class="button">0%</a>
+                <a href="#" class="button">25%</a>
+                <a href="#" class="button">50%</a>
+                <a href="#" class="button">75%</a>
+                <a href="#" class="button">100%</a>
+              </p>
+            </div>
+            <div class="block-title">Circle Gauges</div>
+            <div class="block block-strong">
+              <div class="row">
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="circle" data-value="0.44" data-value-text="44%" data-value-text-color="#ff9800" data-border-color="#ff9800"><svg class="gauge-svg" width="200px" height="200px" viewBox="0 0 200 200">
+              
+                
+                  <circle class="gauge-back-circle" stroke="#eeeeee" stroke-width="10" fill="transparent" cx="100" cy="100" r="95"></circle>
+                
+                <circle class="gauge-front-circle" transform="rotate(-90 100 100)" stroke="#ff9800" stroke-width="10" stroke-dasharray="596.9026041820607" stroke-dashoffset="334.26545834195406" fill="none" cx="100" cy="100" r="95"></circle>
+              
+              
+                <text class="gauge-value-text" x="50%" y="50%" font-weight="500" font-size="31" fill="#ff9800" dy="0" text-anchor="middle" dominant-baseline="middle">44%</text>
+              
+              
+            </svg></div>
+                </div>
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="circle" data-value="0.12" data-value-text="$120" data-value-text-color="#4caf50" data-border-color="#4caf50" data-label-text="of $1000 budget" data-label-text-color="#f44336" data-label-font-weight="700"><svg class="gauge-svg" width="200px" height="200px" viewBox="0 0 200 200">
+              
+                
+                  <circle class="gauge-back-circle" stroke="#eeeeee" stroke-width="10" fill="transparent" cx="100" cy="100" r="95"></circle>
+                
+                <circle class="gauge-front-circle" transform="rotate(-90 100 100)" stroke="#4caf50" stroke-width="10" stroke-dasharray="596.9026041820607" stroke-dashoffset="525.2742916802134" fill="none" cx="100" cy="100" r="95"></circle>
+              
+              
+                <text class="gauge-value-text" x="50%" y="50%" font-weight="500" font-size="31" fill="#4caf50" dy="0" text-anchor="middle" dominant-baseline="middle">$120</text>
+              
+              
+                <text class="gauge-label-text" x="50%" y="50%" font-weight="700" font-size="14" fill="#f44336" dy="25.5" text-anchor="middle" dominant-baseline="middle">of $1000 budget</text>
+              
+            </svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="block-title">Semicircle Gauges</div>
+            <div class="block block-strong">
+              <div class="row">
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="semicircle" data-value="0.3" data-value-text="30%" data-value-text-color="#f44336" data-border-color="#f44336"><svg class="gauge-svg" width="200px" height="100px" viewBox="0 0 200 100">
+              
+                <path class="gauge-back-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#eeeeee" stroke-width="10" fill="transparent"></path>
+                <path class="gauge-front-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#f44336" stroke-width="10" stroke-dasharray="298.45130209103036" stroke-dashoffset="387.9866927183395" fill="none"></path>
+              
+              
+                <text class="gauge-value-text" x="50%" y="100%" font-weight="500" font-size="31" fill="#f44336" dy="-5" text-anchor="middle" dominant-baseline="false">30%</text>
+              
+              
+            </svg></div>
+                </div>
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="semicircle" data-value="0.5" data-value-text="30kg" data-value-text-color="#e91e63" data-border-color="#e91e63" data-label-text="of 60kg total" data-label-text-color="#333"><svg class="gauge-svg" width="200px" height="100px" viewBox="0 0 200 100">
+              
+                <path class="gauge-back-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#eeeeee" stroke-width="10" fill="transparent"></path>
+                <path class="gauge-front-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#e91e63" stroke-width="10" stroke-dasharray="298.45130209103036" stroke-dashoffset="447.67695313654554" fill="none"></path>
+              
+              
+                <text class="gauge-value-text" x="50%" y="100%" font-weight="500" font-size="31" fill="#e91e63" dy="-29" text-anchor="middle" dominant-baseline="false">30kg</text>
+              
+              
+                <text class="gauge-label-text" x="50%" y="100%" font-weight="400" font-size="14" fill="#333" dy="-5" text-anchor="middle" dominant-baseline="false">of 60kg total</text>
+              
+            </svg></div>
+                </div>
+              </div>
+            </div>
+            <div class="block-title">Customization</div>
+            <div class="block block-strong">
+              <div class="row">
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="circle" data-value="0.35" data-value-text="35%" data-value-text-color="#4caf50" data-value-font-size="51" data-value-font-weight="700" data-border-width="20" data-border-color="#4caf50" data-border-bg-color="#ffeb3b" data-bg-color="#ffeb3b"><svg class="gauge-svg" width="200px" height="200px" viewBox="0 0 200 200">
+              
+                
+                  <circle class="gauge-back-circle" stroke="#ffeb3b" stroke-width="20" fill="#ffeb3b" cx="100" cy="100" r="90"></circle>
+                
+                <circle class="gauge-front-circle" transform="rotate(-90 100 100)" stroke="#4caf50" stroke-width="20" stroke-dasharray="565.4866776461628" stroke-dashoffset="367.5663404700058" fill="none" cx="100" cy="100" r="90"></circle>
+              
+              
+                <text class="gauge-value-text" x="50%" y="50%" font-weight="700" font-size="51" fill="#4caf50" dy="0" text-anchor="middle" dominant-baseline="middle">35%</text>
+              
+              
+            </svg></div>
+                </div>
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="circle" data-value="0.67" data-value-text="$670" data-value-text-color="#000" data-border-color="#ff9800" data-label-text="of $1000 spent" data-label-text-color="#4caf50" data-label-font-weight="800" data-label-font-size="12" data-border-width="30"><svg class="gauge-svg" width="200px" height="200px" viewBox="0 0 200 200">
+              
+                
+                  <circle class="gauge-back-circle" stroke="#eeeeee" stroke-width="30" fill="transparent" cx="100" cy="100" r="85"></circle>
+                
+                <circle class="gauge-front-circle" transform="rotate(-90 100 100)" stroke="#ff9800" stroke-width="30" stroke-dasharray="534.0707511102648" stroke-dashoffset="176.24334786638738" fill="none" cx="100" cy="100" r="85"></circle>
+              
+              
+                <text class="gauge-value-text" x="50%" y="50%" font-weight="500" font-size="31" fill="#000" dy="0" text-anchor="middle" dominant-baseline="middle">$670</text>
+              
+              
+                <text class="gauge-label-text" x="50%" y="50%" font-weight="800" font-size="12" fill="#4caf50" dy="25.5" text-anchor="middle" dominant-baseline="middle">of $1000 spent</text>
+              
+            </svg></div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="semicircle" data-value="0.5" data-value-text="50%" data-value-text-color="#ffeb3b" data-value-font-size="41" data-value-font-weight="700" data-border-width="10" data-border-color="#ffeb3b" data-border-bg-color="transparent"><svg class="gauge-svg" width="200px" height="100px" viewBox="0 0 200 100">
+              
+                <path class="gauge-back-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="transparent" stroke-width="10" fill="transparent"></path>
+                <path class="gauge-front-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#ffeb3b" stroke-width="10" stroke-dasharray="298.45130209103036" stroke-dashoffset="447.67695313654554" fill="none"></path>
+              
+              
+                <text class="gauge-value-text" x="50%" y="100%" font-weight="700" font-size="41" fill="#ffeb3b" dy="-5" text-anchor="middle" dominant-baseline="false">50%</text>
+              
+              
+            </svg></div>
+                </div>
+                <div class="col text-align-center">
+                  <div class="gauge gauge-init" data-type="semicircle" data-value="0.77" data-border-color="#ff9800" data-label-text="$770 spent so far" data-label-text-color="#ff9800" data-label-font-weight="800" data-label-font-size="12" data-border-width="10"><svg class="gauge-svg" width="200px" height="100px" viewBox="0 0 200 100">
+              
+                <path class="gauge-back-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#eeeeee" stroke-width="10" fill="transparent"></path>
+                <path class="gauge-front-semi" d="M195,100 a1,1 0 0,0 -190,0" stroke="#ff9800" stroke-width="10" stroke-dasharray="298.45130209103036" stroke-dashoffset="528.2588047011237" fill="none"></path>
+              
+              
+              
+                <text class="gauge-label-text" x="50%" y="100%" font-weight="800" font-size="12" fill="#ff9800" dy="-5" text-anchor="middle" dominant-baseline="false">$770 spent so far</text>
+              
+            </svg></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- <div class="page-content">
           <div class="list searchbar-hide-on-search">
             <ul>
               <li>
@@ -606,7 +762,7 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

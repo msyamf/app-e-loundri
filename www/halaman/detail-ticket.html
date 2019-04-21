@@ -90,18 +90,18 @@
                           </div>
                         </div>
                       </li>
-                      <li class="accordion-item">
+                      <li class="accordion-item selesai">
                           <a href="#" class="item-link item-content">
                             <div class="item-inner">
                               <div class="item-title">Aksi</div>
                             </div>
                           </a>
-                          <div class="accordion-item-content" style="" aria-hidden="true">
+                          <div class="accordion-item-content" aria-hidden="true">
                             <div class="block">
                                 <p class="row">
-                                    <button class="col button button-fill color-red">HAPUS</button>
-                                    <button class="col button button-fill color-green">Selesai</button>
-                                    <button class="col button button-fill color-blue">Edit</button>
+                                    <button class="col button button-fill color-red" id="hapus" akses="pemilik" style="display: none">HAPUS</button>
+                                    <button class="col button button-fill color-green" id="selesai">Selesai</button>
+                                    <!-- <button class="col button button-fill color-blue" id="edit">Edit</button> -->
                                   </p>
                             </div>
                           </div>
@@ -109,9 +109,6 @@
                      
                     </ul>
                   </div>
-
-
-        
           <div class="block-title">{{sub_judul_1}}</div>
           <div class="card">
             <div class="card-content">
@@ -125,7 +122,7 @@
             <div class="card">
                 <div class="card-content card-content-padding" id="total_biaya"></div>
            </div>
-        <div class="list no-hairlines-md">
+        <div class="list no-hairlines-md selesai">
             <ul>
               <li class="item-content item-input item-input-with-value">
                   <div class="item-inner">
@@ -153,7 +150,7 @@
                     <div class="col"><button id="tambah" class="col button button-raised button-fill">tambah</button></div>
                     <div class="col"></div>
                    
-                  </div>
+            </div>
           </div>
       </div>
     </div>
