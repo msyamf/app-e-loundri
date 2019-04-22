@@ -21,7 +21,7 @@ function onBackKeyDown() {
 }
 
 //const axios = require('axios');
-var baseurl = 'http://localhost/rest-api-e-loundri/public';
+//var baseurl = 'http://localhost/rest-api-e-loundri/public';
 
 // Dom7
 var $$ = Dom7;
@@ -59,9 +59,15 @@ var app = new Framework7({
   
 });
 
+var baseurl = 'https://iksankampret.000webhostapp.com';//app.form.getFormData('url');
 
 var toastsucess = app.toast.create({
   text: 'berhasil',
+  closeTimeout: 2000,
+});
+
+var toastpingg = app.toast.create({
+  text: 'ping sukses',
   closeTimeout: 2000,
 });
 
@@ -107,6 +113,21 @@ $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
           app.form.storeFormData('token','Bearer '+ data_j.token);
           app.form.storeFormData('level', data_j.level);
           app.views.main.router.navigate('/')
+        }
+      if(!data_j.proses){
+        toasterr.open();
+        }
+      });
+  });
+  $$('#ping').click(function(e){
+    app.request.post($$('input#url').val()+'/ping',{}, function (data) {
+      var data_j = JSON.parse(data); 
+      if(data_j.proses){
+        app.form.storeFormData('url',$$('input#url').val());
+        toastpingg.open()
+        }
+      if(!data_j.proses){
+        toasterr.open();
         }
       });
   });
