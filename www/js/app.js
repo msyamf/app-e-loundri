@@ -59,8 +59,8 @@ var app = new Framework7({
   
 });
 
-//var baseurl = 'https://iksankampret.000webhostapp.com';//app.form.getFormData('url');
-var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
+var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+//var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
 
 
 
@@ -112,49 +112,19 @@ $$(document).on('page:init',function (e) {
         app.views.main.router.navigate('/masuk/')
       }
 
-    })
+    }).catch(function (error) {
+      console.log(error);
+      toasterr.open();
+  });
 })
 
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
  var tanggal = new Date().getFullYear()+'-'+('0' + (new Date().getMonth() + 1)).slice(-2)+'-'+ ('0' + (new Date().getDate() + 1)).slice(-2)
-  $$('#tanggal').val(tanggal);
-  var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 9],
-              backgroundColor: [
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-              ],
-              borderColor: [
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-                random_rgba(),
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-          }
-      }
-  });
+ $$('#tanggal_pembayaran').val(tanggal);
+
+ render_chat_harian();
+
+  
 });
 
 $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
@@ -282,6 +252,7 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
       id_ticket:id,
     }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
     .then(function (data) {
+      $$(document).on('.reload.ticket','click')
       app.views.main.router.refreshPage()
         })
       .catch(function (error) {
@@ -619,4 +590,48 @@ function list_ticket(offset){
       console.log(error);
       toasterr.open();
   });
+}
+
+function render_chat_harian(){
+  axios.post(baseurl+'/home/chat', {tanggal_pembayaran:$$('#tanggal_pembayaran').val(),pembayaran:$$('#pembayaran').val()},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
+ .then(function (data) {
+   console.log('data',data.data.data)
+   var i;
+   var labelChat=[];
+   var datachat=[];
+   var backgroundColorChat=[];
+   var borderColorChat=[];
+   for (i = 0; i < data.data.data.length; i++) { 
+    labelChat.push(data.data.data[i].m_nama);
+    datachat.push(parseInt(data.data.data[i].nominal));
+    backgroundColorChat.push(random_rgba());
+    borderColorChat.push(random_rgba());
+  }
+   var ctx = document.getElementById('myChart');
+   var myChart = new Chart(ctx, {
+       type: 'bar',
+       data: {
+           labels: labelChat,
+           datasets: [{
+               label: '# ',
+               data:datachat,
+               backgroundColor: backgroundColorChat,
+               borderColor: borderColorChat,
+               borderWidth: 1
+           }]
+       },
+       options: {
+           scales: {
+               yAxes: [{
+                   ticks: {
+                       beginAtZero: true
+                   }
+               }]
+           }
+       }
+   });
+ }).catch(function (error) {
+  console.log(error);
+  toasterr.open();
+});
 }

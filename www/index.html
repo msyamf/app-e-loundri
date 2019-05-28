@@ -93,7 +93,29 @@
                   <div class="item-inner">
                     <div class="item-title item-label">Tanggal</div>
                     <div class="item-input-wrap">
-                      <input type="date" value="" id="tanggal" placeholder="Please choose..." class="input-with-value">
+                      <input type="date" value="" onchange="render_chat_harian()" id="tanggal_pembayaran" placeholder="Please choose..." class="input-with-value">
+                    </div>
+                  </div>
+                </li>
+                <!-- <li class="item-content item-input item-input-with-value">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Status</div>
+                    <div class="item-input-wrap">
+                      <select placeholder="Please choose..." class="input-with-value">
+                        <option value="proses">proses</option>
+                        <option value="selesai">selesai</option>
+                      </select>
+                    </div>
+                  </div>
+                </li> -->
+                <li class="item-content item-input item-input-with-value">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Pembayaran</div>
+                    <div class="item-input-wrap">
+                      <select id="pembayaran" onchange="render_chat_harian()" placeholder="Please choose..." class="input-with-value">
+                        <option value="lunas" selected>Lunas</option>
+                        <option value="belum lunas">Belum lunas</option>
+                      </select>
                     </div>
                   </div>
                 </li>
@@ -102,7 +124,7 @@
             <div class="block block-strong text-align-center">
             
               <canvas id="myChart"></canvas>
-              <div class="list">
+              <!-- <div class="list">
                   <ul>
                     <li>
                       <div class="item-content">
@@ -134,7 +156,7 @@
                 </div>
                 <div class="carrd">
                 <div class="card-content card-content-padding"><h3>Total 900000</h3></div>
-              </div>
+              </div> -->
             </div>
             
           
