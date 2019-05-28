@@ -60,49 +60,12 @@ var app = new Framework7({
 });
 
 //var baseurl = 'https://iksankampret.000webhostapp.com';//app.form.getFormData('url');
-var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
 
 
 
 
 
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 9],
-            backgroundColor: [
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-            ],
-            borderColor: [
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-              random_rgba(),
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
 
 
 
@@ -123,14 +86,7 @@ var toasterr = app.toast.create({
   closeTimeout: 2000,
 });
 
-axios.post(baseurl+'/pengguna/cek', {},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
-.then(function (data) {
-})
-.catch(function (error) {
-  if(error.response.status===401){
-    app.form.removeFormData('token');
-  }
-});
+
 
 $$(document).on('page:init',function (e) {
   if(app.form.getFormData('level')=='pemilik'){
@@ -148,8 +104,58 @@ $$(document).on('page:init',function (e) {
   if(!token){
     app.views.main.router.navigate('/masuk/')
   }
- 
+  axios.post(baseurl+'/pengguna/cek', {},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log('data',data.data.status)
+      if(data.data.status=='unauthorized'){
+        app.form.removeFormData('token');
+        app.views.main.router.navigate('/masuk/')
+      }
+
+    })
 })
+
+$$(document).on('page:init', '.page[data-name="home"]', function (e) {
+ var tanggal = new Date().getFullYear()+'-'+('0' + (new Date().getMonth() + 1)).slice(-2)+'-'+ ('0' + (new Date().getDate() + 1)).slice(-2)
+  $$('#tanggal').val(tanggal);
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 9],
+              backgroundColor: [
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+              ],
+              borderColor: [
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+                random_rgba(),
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+});
 
 $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
   $$('#masuk').click(function(e){
