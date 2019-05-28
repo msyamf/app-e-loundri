@@ -8,7 +8,7 @@
               <span class="ios-only">Back</span>
             </a>
           </div>
-          <div class="title">{{judul}}</div>
+          <div class="title">{{judul}} <span id="id"></span></div>
         </div>
       </div>
     
@@ -106,6 +106,22 @@
                             </div>
                           </div>
                         </li>
+                        <li class="accordion-item">
+                            <a href="#" class="item-link item-content">
+                              <div class="item-inner">
+                                <div class="item-title">Pembayaran</div>
+                              </div>
+                            </a>
+                            <div class="accordion-item-content" aria-hidden="true">
+                              <div class="block">
+                                  <p class="row">
+                                      <button class="col button button-fill color-red" id="belum_lunas" akses="pemilik" style="display: none">Belum Lunas</button>
+                                      <button class="col button button-fill color-green" id="lunas">Lunas</button>
+                                      <!-- <button class="col button button-fill color-blue" id="edit">Edit</button> -->
+                                    </p>
+                              </div>
+                            </div>
+                          </li>
                      
                     </ul>
                   </div>

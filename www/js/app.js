@@ -59,7 +59,54 @@ var app = new Framework7({
   
 });
 
-var baseurl = 'https://iksankampret.000webhostapp.com';//app.form.getFormData('url');
+//var baseurl = 'https://iksankampret.000webhostapp.com';//app.form.getFormData('url');
+var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+
+
+
+
+
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 9],
+            backgroundColor: [
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+            ],
+            borderColor: [
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+              random_rgba(),
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+
 
 var toastsucess = app.toast.create({
   text: 'berhasil',
@@ -166,6 +213,11 @@ $$(document).on('page:init', '.page[data-name="list-ticket"]', function (e) {
                           else if(v[i].status_ticket==='selesai'){html+='<span class="badge color-green">'+v[i].status_ticket+'</span>'}
        html +=          '</div>';
        html +='         <div class="item-text">Aalamat : '+v[i].alamat_pelanggan+'</div>';
+       html +='         <div class="item-text">Kode : '+v[i].kode+'</div>';
+       html +='         <div class="item-text">pembayaran : ';
+       if(v[i].pembayaran==='belum lunas'){html+='<span class="badge color-red">'+v[i].pembayaran+'</span>'}
+       else if(v[i].pembayaran==='lunas'){html+='<span class="badge color-green">'+v[i].pembayaran+'</span>'}
+       html +=' </div>';
        html +='      </div>';
        html +='     </a>';
        html +='  </li>';
@@ -198,7 +250,6 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
       id_ticket:id,
     }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
     .then(function (data) {
-   
       app.views.main.router.back()
         })
       .catch(function (error) {
@@ -211,6 +262,30 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
       id_harga:$$('#list_harga').val(),
       id_ticket:id,
       jumlah:$$('#jumlah').val(),
+    }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      app.views.main.router.refreshPage()
+        })
+      .catch(function (error) {
+        console.log(error);
+        toasterr.open();
+    });
+  });
+  $$('#lunas').click(function(e){
+    axios.post(baseurl+'/ticket/lunas', {
+      id_ticket:id,
+    }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      app.views.main.router.refreshPage()
+        })
+      .catch(function (error) {
+        console.log(error);
+        toasterr.open();
+    });
+  });
+  $$('#belum_lunas').click(function(e){
+    axios.post(baseurl+'/ticket/belum-lunas', {
+      id_ticket:id,
     }, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
     .then(function (data) {
       app.views.main.router.refreshPage()
@@ -242,6 +317,8 @@ $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
     $$('#status_ticket').html(v.status_ticket)
     $$('#tgl').html(v.tgl)
     $$('#telp_pelangan').html(v.telp_pelangan)
+    $$('#id').html(v.kode)
+   
     if(v3){
       $$('#total_biaya').html('<h2 style="text-align: center">Rp '+v3+' ,-</h2>')
     }
@@ -488,6 +565,10 @@ function getRandomColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+function random_rgba() {
+  var o = Math.round, r = Math.random, s = 155;
+  return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
 }
 
 function logout(){
