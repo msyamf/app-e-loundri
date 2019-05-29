@@ -59,8 +59,8 @@ var app = new Framework7({
   
 });
 
-var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
-//var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
+//var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
 
 
 
