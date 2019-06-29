@@ -59,8 +59,8 @@ var app = new Framework7({
   
 });
 
-var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
-//var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
+//var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
 
 
 
@@ -474,7 +474,22 @@ $$(document).on('page:init', '.page[data-name="ubah-pengguna"]', function (e) {
       console.log(error);
     });
   })
-
+  $$('#hapus').click(function(e){
+    axios.post(baseurl+'/pengguna/hapus', {
+      id: $$('#hapus').data('id')
+    },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log(data.data.proses)
+      toastsucess.open();
+     if(data.data.proses){
+      app.views.main.router.back()
+     }
+    })
+    .catch(function (error) {
+      toasterr.open();
+      console.log(error);
+    });
+   })
  $$('#ubah-password').click(function(e){
   axios.post(baseurl+'/pengguna/ubah-password', {
     password: $$('#password').val(),
@@ -499,6 +514,23 @@ $$(document).on('page:init', '.page[data-name="ubah-harga"]', function (e) {
       m_nama: $$('#m_nama').val(),
       m_harga: $$('#m_harga').val(),
       id: $$('#ubah').data('id'),
+    },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+    .then(function (data) {
+      console.log(data.data.proses)
+      toastsucess.open();
+    if(data.data.proses){
+      app.views.main.router.back()
+    }
+    })
+    .catch(function (error) {
+      toasterr.open();
+      console.log(error);
+    });
+  })
+
+  $$('#hapus').click(function(e){
+    axios.post(baseurl+'/m-harga/hapus', {
+      id: $$('#hapus').data('id'),
     },{headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
     .then(function (data) {
       console.log(data.data.proses)
