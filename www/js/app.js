@@ -159,9 +159,13 @@ $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
 $$(document).on('page:init', '.page[data-name="list-ticket"]', function (e) {
   app.form.storeFormData('offset_list_ticket',10);
     $$('.page-content').scroll(function(e){
-    var a = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-        console.log(a)
-    if(a){
+    // var a = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    //     console.log('e.target.scrollHeight :',e.target.scrollHeight)
+    //     console.log('e.target.scrollTop :',e.target.scrollTop)
+    //     console.log('e.target.clientHeight :',e.target.clientHeight)
+    //     $$('.title').html(Math.ceil(e.target.scrollHeight - e.target.scrollTop)+'-'+e.target.clientHeight+a)
+    //     console.log(a)
+    if(Math.ceil(e.target.scrollHeight - e.target.scrollTop)==e.target.clientHeight){
       list_ticket(app.form.getFormData('offset_list_ticket'))
     }
   })
