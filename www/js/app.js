@@ -59,7 +59,7 @@ var app = new Framework7({
   
 });
 
-//var baseurl = 'http://localhost:89/public';//app.form.getFormData('url');
+//var baseurl = 'http://localhost:8000';//app.form.getFormData('url');
 var baseurl = 'https://ante-nicene-termina.000webhostapp.com';//app.form.getFormData('url');
 
 
@@ -126,6 +126,39 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
 
   
 });
+$$(document).on('page:init', '.page[data-name="detail-pendapatan-harian"]', function (e) {
+ 
+ render_chat_harian($$('.page[data-name="detail-pendapatan-harian"]').data('tgl'),'lunas');
+    axios.post(baseurl+'/home/chat', {tanggal_pembayaran:$$('.page[data-name="detail-pendapatan-harian"]').data('tgl'),pembayaran:'lunas'},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
+    .then(function (data) {
+      var v = data.data.data;
+      console.log('go',v);
+      var html="";
+      for(i=0;i<v.length;i++){
+        html +='<li>';
+        html +='  <a href="#" class="item-link item-content">';
+        html +='       <div class="item-inner">';
+        html +='        <div class="item-title-row">';
+        html +='         <div class="item-title">';
+        html +=          v[i].m_nama;
+        html +=          '</div>';
+       html +='         <div class="item-after">'+v[i].nominal+'</div>';
+        html +='         </div>';
+        html +='          <div class="item-subtitle">';
+        html +=          '</div>';
+        html +=' </div>';
+        html +='      </div>';
+        html +='     </a>';
+        html +='  </li>';
+       }
+       $$('#list-pendapatan-harian-detail').html(html);
+     
+    }).catch(function (error) {
+      console.log(error);
+      toasterr.open();
+    });
+   
+ });
 
 $$(document).on('page:init', '.page[data-name="masuk"]', function (e) {
   $$('#masuk').click(function(e){
@@ -209,6 +242,47 @@ $$(document).on('page:init', '.page[data-name="list-ticket"]', function (e) {
       toasterr.open();
   });
 });
+
+$$(document).on('page:init', '.page[data-name="list-pendapatan-harian"]', function (e) {
+  app.form.storeFormData('offset_list_pendapatan_harian',50);
+    $$('.page-content').scroll(function(e){
+    if(Math.ceil(e.target.scrollHeight - e.target.scrollTop)==e.target.clientHeight){
+      list_pendapatan_harian(app.form.getFormData('offset_list_pendapatan_harian'))
+    }
+  })
+  axios.post(baseurl+'/pendapatan/harian-lunas', {limit:50,offset:0}, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+  .then(function (data) {
+    //router.refreshPage()
+    var html = "";
+    var v = data.data.data;
+    console.log(v)
+    for(i=0;i<v.length;i++){
+       html +='<li>';
+       html +='  <a href="/detail-pendapatan-harian/?tgl='+v[i].tanggal_pembayaran+'&pembayaran=lunas" class="item-link item-content">';
+       html +='       <div class="item-inner">';
+       html +='        <div class="item-title-row">';
+       html +='         <div class="item-title">Rp ';
+       html +=          v[i].harga;
+       html +=          ' ,-</div>';
+      html +='         <div class="item-after">'+v[i].tanggal_pembayaran_+'</div>';
+       html +='         </div>';
+       html +='          <div class="item-subtitle">';
+     //  html +=           v[i].tgl;
+       html +=          '</div>';
+     //  html +='         <div class="item-text">'+v[i].harga+' </div>';
+       html +=' </div>';
+       html +='      </div>';
+       html +='     </a>';
+       html +='  </li>';
+      }
+      $$('#list-pendapatan-harian').html(html);
+    })
+    .catch(function (error) {
+      console.log(error);
+      toasterr.open();
+  });
+});
+
 
 
 $$(document).on('page:init', '.page[data-name="detail-ticket"]', function (e) {
@@ -628,8 +702,44 @@ function list_ticket(offset){
   });
 }
 
-function render_chat_harian(){
-  axios.post(baseurl+'/home/chat', {tanggal_pembayaran:$$('#tanggal_pembayaran').val(),pembayaran:$$('#pembayaran').val()},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
+
+function list_pendapatan_harian(offset){
+  axios.post(baseurl+'/pendapatan/harian-lunas', {limit:50,offset:offset}, {headers: {'Content-Type': 'application/json','Authorization':app.form.getFormData('token')}})
+  .then(function (data) {
+    //router.refreshPage()
+    var html = "";
+    var v = data.data.data;
+    console.log(v)
+    for(i=0;i<v.length;i++){
+      html +='<li>';
+      html +='  <a href="/detail-pendapatan-harian/?tgl='+v[i].tanggal_pembayaran+'&pembayaran=lunas" class="item-link item-content">';
+      html +='       <div class="item-inner">';
+      html +='        <div class="item-title-row">';
+      html +='         <div class="item-title">Rp ';
+      html +=          v[i].harga;
+      html +=          ' ,-</div>';
+      html +='         <div class="item-after">'+v[i].tanggal_pembayaran_+'</div>';
+      html +='         </div>';
+      html +='          <div class="item-subtitle">';
+    //  html +=           v[i].tgl;
+      html +=          '</div>';
+    //  html +='         <div class="item-text">'+v[i].harga+' </div>';
+      html +=' </div>';
+      html +='      </div>';
+      html +='     </a>';
+      html +='  </li>';
+     }
+     $$('#list-pendapatan-harian').append(html);
+      app.form.storeFormData('offset_list_pendapatan_harian',app.form.getFormData('offset_list_pendapatan_harian')+50);
+    })
+    .catch(function (error) {
+      console.log(error);
+      toasterr.open();
+  });
+}
+
+function render_chat_harian(tgl =$$('#tanggal_pembayaran').val(),pembayaran=$$('#pembayaran').val()){
+  axios.post(baseurl+'/home/chat', {tanggal_pembayaran:tgl,pembayaran:pembayaran},{headers: {'Content-Type': 'application/json','Authorization': app.form.getFormData('token')}})
  .then(function (data) {
    console.log('data',data.data.data)
    var i;

@@ -108,6 +108,28 @@ var routes = [
         },
       },
     },
+    {
+      path: '/list-pendapatan-harian/',
+      componentUrl: './halaman/list-pendapatan-harian.html',
+      options: {
+        context: {
+          judul: 'List pendapatan harian',
+          sub_judul: 'list pendapatan',
+        },
+      },
+    },
+    {
+      path: '/detail-pendapatan-harian/',
+      componentUrl: './halaman/detail-pendapatan-harian.html',
+      options: {
+        context: {
+          judul: 'Detail pendapatan harian',
+          sub_judul: 'list pendapatan',
+        },
+      },
+    },
+
+    //detail-pendapatan-harian-lunas
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   {
     path: '/about/',
